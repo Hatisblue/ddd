@@ -34,7 +34,7 @@ class Config:
     LOG_FILE_PATH = "zapros.txt"
     FEEDBACK_FILE = "feedback.pkl"
     MAX_MESSAGE_SIZE = 4000
-    BOT_TOKEN = "7532994631:AAEHa4jEpi9U8JoISi9BlNfBmn8g5ETaXtQ"
+    BOT_TOKEN = ""
     EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
     QA_MODEL_NAME = "timpal0l/mdeberta-v3-base-squad2"
     CLASSIFIER_MODEL = "cointegrated/rubert-tiny-toxicity"
