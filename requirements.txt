@@ -36,6 +36,10 @@ SpeechRecognition==3.10.4
 # Monitoring and logging
 loguru==0.7.2
 sentry-sdk==2.18.0
+psutil==6.1.0
+
+# Security
+bleach==6.2.0
 
 # Data analysis
 pandas==2.2.3
