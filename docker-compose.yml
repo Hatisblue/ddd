@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: ai_telegram_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./bot:/app/bot
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - bot_network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: bot_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: aibot
+      POSTGRES_USER: botuser
+      POSTGRES_PASSWORD: botpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - bot_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: bot_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - bot_network
+
+  adminer:
+    image: adminer
+    container_name: bot_adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - bot_network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  bot_network:
+    driver: bridge
